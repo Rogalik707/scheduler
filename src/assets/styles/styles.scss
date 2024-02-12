@@ -1,0 +1,14 @@
+@import "header";
+@import "sideBar";
+@import "./UI/window";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+body {
+  background-color: #1B2126;
+}

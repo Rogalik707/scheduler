@@ -1,0 +1,39 @@
+.window {
+  width: 351px;
+  height: 250px;
+  background-color: #21272E;
+  border-radius: 10px;
+  border: 1px solid #F5F5F580;
+  position: absolute;
+  left: 90px;
+
+
+  &-header {
+    height: 52px;
+    width: 100%;
+    cursor: move;
+    user-select: none;
+
+    &-title {
+      padding-top: 18px;
+      margin-left: 9px;
+      width: max-content;
+      cursor: default;
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}
+
+.control-panel {
+  height: 34px;
+  margin: 0 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #252D34;
+}
+
+
+
