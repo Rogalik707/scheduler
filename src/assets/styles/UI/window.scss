@@ -24,6 +24,16 @@
       font-size: 20px;
     }
   }
+
+  &-list {
+    margin: 10px 0 0 10px;
+    width: 80%;
+    overflow-x: hidden;
+
+    & > p {
+      color: #FFFFFF;
+    }
+  }
 }
 
 .control-panel {

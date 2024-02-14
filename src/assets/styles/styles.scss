@@ -1,12 +1,14 @@
 @import "header";
 @import "sideBar";
 @import "./UI/window";
+@import "./UI/modal";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Inter, sans-serif;
+  color: #FFFFFF;
 }
 
 body {

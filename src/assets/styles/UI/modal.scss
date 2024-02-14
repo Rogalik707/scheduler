@@ -1,0 +1,92 @@
+.modal {
+  &-wrapper {
+    display: none;
+    position: fixed;
+    width: 70%;
+    top: 10%;
+    bottom: 0;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  &-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255);
+  }
+
+  &-box {
+    position: relative;
+    height: 90%;
+    width: 90%;
+    overflow-y: auto;
+    background-color: #21272E;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    z-index: 101;
+    padding: 40px;
+
+    & > h1 {
+      color: #FFFFFF;
+    }
+  }
+
+  &-buttons-container {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    gap: 40px
+  }
+
+  &-name-box {
+    margin-top: 67px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+
+    & > p {
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 19px;
+      text-align: left;
+
+    }
+
+    & > input {
+      width: 361px;
+      height: 30px;
+      border-radius: 5px;
+      color: #21272E;
+    }
+  }
+
+}
+
+
+.button {
+  width: 258px;
+  height: 62px;
+  border-radius: 10px;
+  border: 1px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+  color: #21272E;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+}
+
+.modal-save-changes {
+
+}
+
