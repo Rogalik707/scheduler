@@ -1,6 +1,6 @@
 .window {
-  width: 351px;
-  height: 250px;
+  width: 21vw;
+  height: 26vh;
   background-color: #21272E;
   border-radius: 10px;
   border: 1px solid #F5F5F580;
@@ -43,6 +43,10 @@
   justify-content: space-between;
   align-items: center;
   background-color: #252D34;
+
+  &-button-add {
+    cursor: pointer;
+  }
 }
 
 
