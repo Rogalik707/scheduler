@@ -44,16 +44,10 @@ const Window = ({title, style, listItems}: Props) => {
   };
 
   const handleOpenModal = (key) => {
-      if (key === data.name.sub) {
-        dispatch({type: 'OPEN_MODAL', payload: {key}});
+    // console.log(key, ` = ${data.name.sub}`)
+    dispatch({type: 'ADD_TAB', payload: {key}});
+    dispatch({type: 'OPEN_MODAL', payload: {key}});
 
-        console.log(key, ` = ${data.name.sub}`)
-      } else if (key === data.name.scripts) {
-        dispatch({type: 'OPEN_MODAL', payload: {key}});
-      }
-    // if (key !== 'ПОДПИСКИ') return
-
-    // dispatch({type: 'ADD_TAB', payload: {key}});
   };
 
 

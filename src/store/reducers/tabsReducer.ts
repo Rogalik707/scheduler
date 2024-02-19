@@ -1,39 +1,47 @@
+import {useState} from "react";
+
 const defaultState = {
-  tabs: [
-    {
-      tab: 'ПОДПИСКИ',
-      index: 0
-    }
-  ],
-  activeTab: null,
+  tabs: [],
+  activeTab: null
 }
 
 export const tabsReducer = (state = defaultState, action) => {
+
   switch (action.type) {
     case 'ADD_TAB': {
       const newIndex = state.tabs.length;
       const newTab = {
         tab: action.payload,
-        index: newIndex
+        index: newIndex,
       };
       return {
         ...state,
         tabs: [...state.tabs, newTab],
-        activeTab: action.payload
+        // activeTab: action.payload
       }
     }
     case 'REMOVE_TAB': {
-      const tabIndexToRemove = state.tabs.findIndex(tab => tab.tab === action.payload);
-      console.log('index', state.tabs)
-      if (tabIndexToRemove > -1) {
-        const updatedTabs = state.tabs.filter((tab, index) => index !== tabIndexToRemove);
-        return {
-          ...state,
-          tabs: updatedTabs,
-          activeTab: updatedTabs.length > 0 ? updatedTabs[updatedTabs.length - 1].tab : null,
-        }
+      const updatedTabs = state.tabs.filter((tab) => tab.index !== action.payload.index);
+      return {
+        ...state,
+        tabs: updatedTabs,
+        // activeTab: updatedTabs.length > 0 ? updatedTabs[updatedTabs.length - 1].tab : null,
       }
-      return state;
+    }
+
+    case 'SET_ACTIVE_TAB': {
+      const activeTab = state.tabs.find((tab) => tab.index === action.payload.index);
+      console.log(activeTab)
+      return {
+        ...state,
+        tabs: state.tabs.map((tab) => {
+          return {
+            ...tab,
+            index: tab.index,
+            isActive: action.payload.isActive
+          }
+        })
+      }
     }
 
     default:

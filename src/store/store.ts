@@ -5,12 +5,21 @@ import {listItemsReducer} from "./reducers/listItemsReducer";
 
 
 export type RootReducer = {
-  tabs: [
-    {
-      tab: '',
-      index: number
+  tabs: {
+    tabs: [
+      {
+        tab: {
+          key: string,
+        },
+        isActive: boolean,
+        index: number
+      }
+    ],
+    activeTab: {
+      key: string
     }
-  ],
+  },
+
   activeTab: null,
 
   isModalOpen: {

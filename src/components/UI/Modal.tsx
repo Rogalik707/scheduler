@@ -19,7 +19,7 @@ const Modal =
     const [modalState, setModalState] = useState('')
 
 
-    console.log(modalState, isOpen.isModalOpen)
+    // console.log(modalState, isOpen.isModalOpen)
     useImperativeHandle(ref, () => ({
       open: () => {
         if (modalRef.current) {

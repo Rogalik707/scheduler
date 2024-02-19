@@ -21,7 +21,6 @@ const MainDesk = () => {
 
   const dispatch = useDispatch();
   const [listItems, setListItems] = useState([]);
-  const [tabsList, setTabsList] = useState<any>([]);
   const tabs = useSelector((state: RootReducer) => state.tabs);
   const isModalOpen = useSelector((state: RootReducer) => state.isModalOpen);
 
@@ -34,19 +33,10 @@ const MainDesk = () => {
   };
 
   const handleCloseModal = (key) => {
-    console.log(key)
-    // dispatch({type: 'REMOVE_TAB', payload: {key}});
     dispatch({type: 'CLOSE_MODAL', payload: {key}});
   };
 
-  console.log('asdfaf', isModalOpen.activeWindowKey)
 
-
-  useEffect(() => {
-    setTabsList(tabs)
-    console.log('tabsList', tabsList.tabs?.[0].index)
-
-  }, [tabs]);
   return (
     <>
       <Header/>
@@ -64,20 +54,20 @@ const MainDesk = () => {
         </>
         {
           // tabsList?.tabs?.[0].index >= 0 ?
-          isModalOpen.isModalOpen ?
+          tabs.tabs.length > 0 ?
           (<CustomModal>
-            {/*<Tabs />*/}
+            <Tabs />
             { isModalOpen.activeWindowKey.key === 'ПОДПИСКИ' &&
               <HubModal
                 onTextChange={() => handleTextChange}
-                handleCloseModal={() => handleCloseModal(tabs.length -1)}
+                handleCloseModal={() => handleCloseModal(tabs.tabs.length -1)}
                 title={data.name.sub}
                 setListItems={setListItems}
               />
             }
             { isModalOpen.activeWindowKey.key === 'СКРИПТЫ' &&
               <ScriptsModal
-                handleCloseModal={() => handleCloseModal(tabs.length -1)}
+                handleCloseModal={() => handleCloseModal(tabs.tabs.length -1)}
                 title={data.name.scripts}
               />
             }
