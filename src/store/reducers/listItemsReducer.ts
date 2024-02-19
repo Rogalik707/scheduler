@@ -3,11 +3,6 @@ const defaultState = {
   activeWindowKey: null
 }
 
-export const pushToList = (text) => ({
-  type: 'PUSH_TO_LIST',
-  payload: text
-});
-
 export const listItemsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'PUSH_TO_LIST':

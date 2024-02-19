@@ -1,15 +1,23 @@
 import {combineReducers, createStore} from "@reduxjs/toolkit";
-import {tabsReducer} from "./tabsReducer";
-import {modalReducer} from "./modalReducer";
-import {listItemsReducer} from "./listItemsReducer";
+import {tabsReducer} from "./reducers/tabsReducer";
+import {modalReducer} from "./reducers/modalReducer";
+import {listItemsReducer} from "./reducers/listItemsReducer";
 
 
 export type RootReducer = {
-  tabs: number,
+  tabs: [
+    {
+      tab: '',
+      index: number
+    }
+  ],
+  activeTab: null,
 
   isModalOpen: {
     isModalOpen: boolean,
-    activeWindowKey: null
+    activeWindowKey: {
+      key: string
+    }
   },
 
   list: {

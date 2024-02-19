@@ -1,9 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import React, {useState} from 'react';
 import addIcon from '../../assets/img/add_circle.svg';
 import deleteIcon from '../../assets/img/delete.svg';
-import {ModalRef} from "./Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../../store/store";
+import {data} from "../local/data";
 
 type Props = {
   title?: string,
@@ -17,13 +19,11 @@ const Window = ({title, style, listItems}: Props) => {
   const [offsetY, setOffsetY] = useState(0);
 
   const dispatch = useDispatch();
-  const isOpen = useSelector((state: RootReducer) => state.isModalOpen);
-  const list = useSelector((state: RootReducer) => state.list);
+  const tabs = useSelector((state: RootReducer) => state.tabs);
 
-  const modalRef = useRef<ModalRef>(null);
+  // console.log('123', tabs.tabs)
 
 
-  // console.log(listItems)
   const handleMouseDown = (e) => {
     if (e.target.classList.contains('window-header')) {
       setIsDragging(true);
@@ -44,12 +44,18 @@ const Window = ({title, style, listItems}: Props) => {
   };
 
   const handleOpenModal = (key) => {
-    if (key !== 'ПОДПИСКИ') return
-    dispatch({type: 'OPEN_MODAL', payload: {key}});
-    // console.log(isOpen)
+      if (key === data.name.sub) {
+        dispatch({type: 'OPEN_MODAL', payload: {key}});
+
+        console.log(key, ` = ${data.name.sub}`)
+      } else if (key === data.name.scripts) {
+        dispatch({type: 'OPEN_MODAL', payload: {key}});
+      }
+    // if (key !== 'ПОДПИСКИ') return
+
+    // dispatch({type: 'ADD_TAB', payload: {key}});
   };
 
-  // console.log(listItems)
 
   return (
     <div

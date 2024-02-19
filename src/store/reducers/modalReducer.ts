@@ -1,5 +1,5 @@
 const defaultState = {
-  isModalOpen: true,
+  isModalOpen: false,
   activeWindowKey: null,
 }
 

@@ -1,13 +1,14 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Window from "../components/UI/Window";
 import {data} from "../components/local/data";
 import HubModal from "../components/HubModal";
-import Modal, {ModalRef} from "../components/UI/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../store/store";
 import CustomModal from "../components/UI/CustomModal";
+import Tabs from "../components/UI/Tabs";
+import ScriptsModal from "../components/ScriptsModal";
 
 
 const MainDesk = () => {
@@ -18,10 +19,11 @@ const MainDesk = () => {
     files: ''
   });
 
-  const modalRef = useRef<ModalRef>(null);
   const dispatch = useDispatch();
-  const isOpen = useSelector((state: RootReducer) => state.isModalOpen);
   const [listItems, setListItems] = useState([]);
+  const [tabsList, setTabsList] = useState<any>([]);
+  const tabs = useSelector((state: RootReducer) => state.tabs);
+  const isModalOpen = useSelector((state: RootReducer) => state.isModalOpen);
 
 
   const handleTextChange = (key, newText) => {
@@ -32,11 +34,19 @@ const MainDesk = () => {
   };
 
   const handleCloseModal = (key) => {
+    console.log(key)
+    // dispatch({type: 'REMOVE_TAB', payload: {key}});
     dispatch({type: 'CLOSE_MODAL', payload: {key}});
-    console.log(isOpen)
   };
 
+  console.log('asdfaf', isModalOpen.activeWindowKey)
 
+
+  useEffect(() => {
+    setTabsList(tabs)
+    console.log('tabsList', tabsList.tabs?.[0].index)
+
+  }, [tabs]);
   return (
     <>
       <Header/>
@@ -53,15 +63,27 @@ const MainDesk = () => {
           <Window title={data.name.files} style={{top: 630}}/>
         </>
         {
-          isOpen.isModalOpen &&
-          <CustomModal>
-            <HubModal
-              onTextChange={() => handleTextChange}
-              handleCloseModal={() => handleCloseModal(isOpen.activeWindowKey)}
-              title={data.name.sub}
-              setListItems={setListItems}
-            />
-          </CustomModal>
+          // tabsList?.tabs?.[0].index >= 0 ?
+          isModalOpen.isModalOpen ?
+          (<CustomModal>
+            {/*<Tabs />*/}
+            { isModalOpen.activeWindowKey.key === 'ПОДПИСКИ' &&
+              <HubModal
+                onTextChange={() => handleTextChange}
+                handleCloseModal={() => handleCloseModal(tabs.length -1)}
+                title={data.name.sub}
+                setListItems={setListItems}
+              />
+            }
+            { isModalOpen.activeWindowKey.key === 'СКРИПТЫ' &&
+              <ScriptsModal
+                handleCloseModal={() => handleCloseModal(tabs.length -1)}
+                title={data.name.scripts}
+              />
+            }
+
+
+          </CustomModal>) : null
         }
       </div>
       </body>
