@@ -8,16 +8,13 @@ export const tabsReducer = (state = defaultState, action) => {
   switch (action.type) {
 
     case 'ADD_TAB': {
-      // const newIndex = state.tabs.length;
       const newTab = {
         tab: action.payload,
-        // index: newIndex,
         isActive: true
       };
       return {
         ...state,
         tabs: [...state.tabs.map(tab => ({...tab, isActive: false})), newTab],
-        // activeTab: newIndex
       }
     }
 
@@ -36,7 +33,7 @@ export const tabsReducer = (state = defaultState, action) => {
       return {
         ...state,
         activeTab: action.payload.tabIndex,
-        tabs: state.tabs.map((tab, index) => ({ ...tab, isActive: action.payload.tabIndex === index }))
+        tabs: state.tabs.map((tab, index) => ({...tab, isActive: action.payload.tabIndex === index}))
       }
     }
 

@@ -1,21 +1,21 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
+import addIcon from "../assets/img/add_circle.svg";
+import {data} from "../components/local/data";
 
 
 type Props = {
   onTextChange: (text: string) => void,
-  title: string,
-  setListItems: (items: (prevState) => [...any[], string]) => void
+  setListItems: (items: (prevState) => [...any[], string]) => void,
 }
 const HubModal = ({
                     onTextChange,
-                    title,
                     setListItems
                   }: Props) => {
+  const addSub = data.name.addSub
   const [inputTextName, setInputTextName] = useState('');
   const [inputTextURL, setInputTextURL] = useState('');
   const dispatch = useDispatch();
-
 
 
   const handleChangeName = (e) => {
@@ -35,16 +35,19 @@ const HubModal = ({
   }
 
 
-
   const handleChangeURL = (e) => {
     const newText = e.target.value;
     setInputTextURL(newText);
     // onTextChange(newText);
   }
 
+  const addSubscribe = (key) => {
+    console.log(123)
+    dispatch({type: 'ADD_TAB', payload: {key}})
+  }
+
   return (
     <>
-      <h1>{title}</h1>
       <div className="modal-box-fill">
         <div className="modal-box-wrapper">
           <div className="modal-box-container">
@@ -62,7 +65,12 @@ const HubModal = ({
         </div>
 
         <div className="modal-box-subs-list">
-          <p>Список подписок</p>
+          <div className="modal-box-subs-list-title">
+            <p>Список подписок</p>
+            <div className="modal-box-subs-list-title-button" onClick={() => addSubscribe(addSub)}>
+              <img src={addIcon} alt="add"/>
+            </div>
+          </div>
           <textarea/>
         </div>
       </div>

@@ -9,6 +9,7 @@ import {RootReducer} from "../store/store";
 import CustomModal from "../components/UI/CustomModal";
 import Tabs from "../components/UI/Tabs";
 import ScriptsModal from "../components/ScriptsModal";
+import AddSubModal from "../components/AddSubModal";
 
 
 const MainDesk = () => {
@@ -57,7 +58,6 @@ const MainDesk = () => {
                       <HubModal
                         key={tab.tab.key}
                         onTextChange={() => handleTextChange}
-                        title={data.name.sub}
                         setListItems={setListItems}
                       />
                     )
@@ -65,10 +65,17 @@ const MainDesk = () => {
                     return (
                       <ScriptsModal
                         key={tab.tab.key}
-                        title={data.name.scripts}
                       />
                     )
-                  } else return null;
+                  }
+                  else if (tab.isActive === true && tab.tab.key === 'ДОБАВИТЬ ПОДПИСКУ') {
+                    return (
+                      <AddSubModal
+                        key={tab.tab.key}
+                      />
+                    )
+                  }
+                  else return null;
                 })
               }
             </CustomModal>) : null

@@ -5,10 +5,7 @@ import Time from "./Time";
 import {useDispatch} from "react-redux";
 
 
-type Props = {
-  title: string,
-}
-const ScriptsModal = ({title}: Props) => {
+const ScriptsModal = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const dispatch = useDispatch();
@@ -34,7 +31,6 @@ const ScriptsModal = ({title}: Props) => {
 
   return (
     <>
-      <h1>{title}</h1>
       <div className="modal-box-scripts">
         <p>Метод</p>
         <select value={selectedValue} onChange={handleChange}/>

@@ -23,8 +23,8 @@
   &-box {
     padding: 20px;
     position: relative;
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
     overflow-y: auto;
     background-color: #21272E;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
@@ -36,14 +36,14 @@
     }
 
     &-fill {
-      margin-top: 67px;
+      margin-top: 20px;
       display: flex;
       gap: 15px;
       justify-content: space-between;
     }
 
     &-wrapper {
-      width: 507px;
+      width: 31vw;
       gap: 15px;
       display: flex;
       justify-content: flex-start;
@@ -67,14 +67,14 @@
       }
 
       & > input {
-        width: 22vw;
+        width: 19vw;
         height: 3vh;
         border-radius: 5px;
         color: #21272E;
       }
 
       & > textarea {
-        width: 22vw;
+        width: 19vw;
         height: 23vh;
         border-radius: 5px;
         color: #21272E;
@@ -87,7 +87,7 @@
       gap: 15px;
 
       & > textarea {
-        width: 17vw;
+        width: 26vw;
         height: 28.2vh;
       }
 
@@ -98,6 +98,16 @@
         line-height: 19px;
         text-align: left;
 
+      }
+
+      &-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        &-button {
+          cursor: pointer;
+        }
       }
     }
 
@@ -132,6 +142,7 @@
           flex-direction: column;
           gap: 10px;
         }
+
         &-box {
           width: 110%;
           display: flex;
@@ -149,8 +160,46 @@
     gap: 40px
 
   }
+}
 
+.add-sub {
+  margin-top: 30px;
 
+  & > p {
+    margin-top: 20px;
+    color: #FFFFFF;
+    font-size: 0.9em;
+    font-weight: 700;
+    line-height: 19px;
+  }
+
+  &-title-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    & > p {
+      color: #FFFFFF;
+      font-size: 0.9em;
+      font-weight: 700;
+      line-height: 19px;
+      text-align: left;
+    }
+
+    & > input {
+      width: 19vw;
+      height: 3vh;
+      border-radius: 5px;
+    }
+  }
+
+  &-settings {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+  }
 }
 
 

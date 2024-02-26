@@ -2,6 +2,7 @@ export const data = {
   name: {
     sub: "ПОДПИСКИ",
     scripts: "СКРИПТЫ",
-    files: "ФАЙЛЫ"
+    files: "ФАЙЛЫ",
+    addSub: "ДОБАВИТЬ ПОДПИСКУ"
   }
 };
