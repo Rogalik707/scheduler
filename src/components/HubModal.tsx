@@ -50,13 +50,13 @@ const HubModal = ({
           </div>
           <div className="modal-box-container">
             <p>Комментарий</p>
-            <textarea />
+            <textarea/>
           </div>
         </div>
 
         <div className="modal-box-subs-list">
           <p>Список подписок</p>
-          <textarea />
+          <textarea/>
         </div>
       </div>
 

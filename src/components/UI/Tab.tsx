@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../../store/store";
 
@@ -6,10 +6,9 @@ type Props = {
   title: string,
   tabIndex: number
 }
-const Tab = ({ title, tabIndex }: Props) => {
+const Tab = ({title, tabIndex}: Props) => {
   const dispatch = useDispatch();
   const tabs = useSelector((state: RootReducer) => state.tabs);
-  const [isActive, setIsActive] = useState(false);
 
 
   const handleCloseTab = (index) => {
@@ -18,16 +17,20 @@ const Tab = ({ title, tabIndex }: Props) => {
   }
 
   const handleSetActiveTab = () => {
-    dispatch({type: 'SET_ACTIVE_TAB', payload: {index: tabIndex, isActive: true}});
-    setIsActive(!isActive)
-    console.log('tabs', isActive)
+    dispatch({type: 'SET_ACTIVE_TAB', payload: {isActive: tabIndex}});
   }
+  console.log(tabs.activeTab)
 
 
   return (
-    <div className="tab" style={isActive ? {backgroundColor: '#00ec82'}: {backgroundColor: "#181c21"}} onClick={handleSetActiveTab}>
+    <div className="tab"
+         style={tabs.tabs[tabIndex].isActive ? {backgroundColor: '#00ec82'} : {backgroundColor: "#181c21"}}
+         onClick={handleSetActiveTab}>
       {title}
-      <div className="tab-close" onClick={(e) => { e.stopPropagation(); handleCloseTab(tabIndex)}}>
+      <div className="tab-close" onClick={(e) => {
+        e.stopPropagation();
+        handleCloseTab(tabIndex)
+      }}>
         ✖
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Window from "../components/UI/Window";
@@ -53,27 +53,33 @@ const MainDesk = () => {
           <Window title={data.name.files} style={{top: 630}}/>
         </>
         {
-          // tabsList?.tabs?.[0].index >= 0 ?
           tabs.tabs.length > 0 ?
-          (<CustomModal>
-            <Tabs />
-            { isModalOpen.activeWindowKey.key === 'ПОДПИСКИ' &&
-              <HubModal
-                onTextChange={() => handleTextChange}
-                handleCloseModal={() => handleCloseModal(tabs.tabs.length -1)}
-                title={data.name.sub}
-                setListItems={setListItems}
-              />
-            }
-            { isModalOpen.activeWindowKey.key === 'СКРИПТЫ' &&
-              <ScriptsModal
-                handleCloseModal={() => handleCloseModal(tabs.tabs.length -1)}
-                title={data.name.scripts}
-              />
-            }
-
-
-          </CustomModal>) : null
+            (<CustomModal>
+              <Tabs/>
+              {
+                tabs.tabs.map((tab) => {
+                  if (tab.isActive === true && tab.tab.key === 'ПОДПИСКИ') {
+                    return (
+                      <HubModal
+                        key={tab.tab.key}
+                        onTextChange={() => handleTextChange}
+                        handleCloseModal={() => handleCloseModal(tabs.tabs.length - 1)}
+                        title={data.name.sub}
+                        setListItems={setListItems}
+                      />
+                    )
+                  } else if (tab.isActive === true && tab.tab.key === 'СКРИПТЫ') {
+                    return (
+                      <ScriptsModal
+                        key={tab.tab.key}
+                        handleCloseModal={() => handleCloseModal(tabs.tabs.length - 1)}
+                        title={data.name.scripts}
+                      />
+                    )
+                  } else return null;
+                })
+              }
+            </CustomModal>) : null
         }
       </div>
       </body>
