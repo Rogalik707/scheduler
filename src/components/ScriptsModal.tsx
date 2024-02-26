@@ -2,21 +2,26 @@ import React, {useState} from 'react';
 import Condition from "./Condition";
 import Period from "./Period";
 import Time from "./Time";
+import {useDispatch} from "react-redux";
 
 
 type Props = {
   title: string,
-  handleCloseModal: () => void
 }
-const ScriptsModal = ({title, handleCloseModal}: Props) => {
+const ScriptsModal = ({title}: Props) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const dispatch = useDispatch();
 
   const components = {
     option1: <Period/>,
     option2: <Time/>,
     option3: <Condition/>
   };
+
+  const closeModal = () => {
+    dispatch({type: 'CLOSE_MODAL'});
+  }
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -70,8 +75,8 @@ const ScriptsModal = ({title, handleCloseModal}: Props) => {
         {components[selectedOption]}
       </div>
       <div className="modal-buttons-container">
-        <button className="button modal-save-changes" onClick={handleCloseModal}>СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
-        <button className="button modal-cancel" onClick={handleCloseModal}>ОТМЕНИТЬ</button>
+        <button className="button modal-save-changes" >СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+        <button className="button modal-cancel" onClick={closeModal}>ОТМЕНИТЬ</button>
       </div>
     </>
   )

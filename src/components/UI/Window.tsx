@@ -14,39 +14,17 @@ type Props = {
 }
 
 const Window = ({title, style, listItems}: Props) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [offsetX, setOffsetX] = useState(0);
-  const [offsetY, setOffsetY] = useState(0);
 
   const dispatch = useDispatch();
   const tabs = useSelector((state: RootReducer) => state.tabs);
 
-  // console.log('123', tabs.tabs)
 
 
-  const handleMouseDown = (e) => {
-    if (e.target.classList.contains('window-header')) {
-      setIsDragging(true);
-      setOffsetX(e.clientX - e.target.parentElement.getBoundingClientRect().left);
-      setOffsetY(e.clientY - e.target.parentElement.getBoundingClientRect().top);
-    }
-  };
 
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      e.target.parentElement.style.left = e.clientX - offsetX + 'px';
-      e.target.parentElement.style.top = e.clientY - offsetY + 'px';
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
 
   const handleOpenModal = (key) => {
-    // console.log(key, ` = ${data.name.sub}`)
     dispatch({type: 'ADD_TAB', payload: {key}});
-    dispatch({type: 'OPEN_MODAL', payload: {key}});
+    dispatch({type: 'OPEN_MODAL'});
 
   };
 
@@ -54,11 +32,9 @@ const Window = ({title, style, listItems}: Props) => {
   return (
     <div
       className="window"
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
       style={style}
     >
-      <div className="window-header" onMouseDown={handleMouseDown}>
+      <div className="window-header" >
         <p className="window-header-title">{title}</p>
       </div>
       <div className="control-panel">

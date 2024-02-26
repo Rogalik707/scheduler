@@ -1,20 +1,21 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 
 
 type Props = {
   onTextChange: (text: string) => void,
   title: string,
-  handleCloseModal: () => void,
-  setListItems: React.Dispatch<React.SetStateAction<string[]>>
+  setListItems: (items: (prevState) => [...any[], string]) => void
 }
 const HubModal = ({
                     onTextChange,
                     title,
-                    handleCloseModal,
                     setListItems
                   }: Props) => {
   const [inputTextName, setInputTextName] = useState('');
   const [inputTextURL, setInputTextURL] = useState('');
+  const dispatch = useDispatch();
+
 
 
   const handleChangeName = (e) => {
@@ -23,11 +24,17 @@ const HubModal = ({
     onTextChange(newText);
   };
 
+  const closeModal = () => {
+    dispatch({type: 'CLOSE_MODAL'});
+  }
+
   const handleSaveChanges = () => {
     setListItems((prevState) => [...prevState, inputTextName]);
     setInputTextName('')
-    handleCloseModal();
+    closeModal();
   }
+
+
 
   const handleChangeURL = (e) => {
     const newText = e.target.value;
@@ -62,7 +69,7 @@ const HubModal = ({
 
       <div className="modal-buttons-container">
         <button className="button modal-save-changes" onClick={handleSaveChanges}>СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
-        <button className="button modal-cancel" onClick={handleCloseModal}>ОТМЕНИТЬ</button>
+        <button className="button modal-cancel" onClick={closeModal}>ОТМЕНИТЬ</button>
       </div>
     </>
   )

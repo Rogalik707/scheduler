@@ -12,14 +12,12 @@ const Tab = ({title, tabIndex}: Props) => {
 
 
   const handleCloseTab = (index) => {
-    console.log('index component', index)
     dispatch({type: 'REMOVE_TAB', payload: {index}});
   }
 
   const handleSetActiveTab = () => {
-    dispatch({type: 'SET_ACTIVE_TAB', payload: {isActive: tabIndex}});
+    dispatch({type: 'SET_ACTIVE_TAB', payload: {tabIndex}});
   }
-  console.log(tabs.activeTab)
 
 
   return (

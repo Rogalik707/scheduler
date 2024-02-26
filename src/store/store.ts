@@ -11,7 +11,6 @@ export type RootReducer = {
         tab: {
           key: string,
         },
-        index: number,
         isActive: boolean
       }
     ],
@@ -24,9 +23,6 @@ export type RootReducer = {
 
   isModalOpen: {
     isModalOpen: boolean,
-    activeWindowKey: {
-      key: string
-    }
   },
 
   list: {

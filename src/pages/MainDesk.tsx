@@ -4,7 +4,7 @@ import SideBar from "../components/SideBar";
 import Window from "../components/UI/Window";
 import {data} from "../components/local/data";
 import HubModal from "../components/HubModal";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootReducer} from "../store/store";
 import CustomModal from "../components/UI/CustomModal";
 import Tabs from "../components/UI/Tabs";
@@ -19,7 +19,6 @@ const MainDesk = () => {
     files: ''
   });
 
-  const dispatch = useDispatch();
   const [listItems, setListItems] = useState([]);
   const tabs = useSelector((state: RootReducer) => state.tabs);
   const isModalOpen = useSelector((state: RootReducer) => state.isModalOpen);
@@ -32,9 +31,8 @@ const MainDesk = () => {
     }));
   };
 
-  const handleCloseModal = (key) => {
-    dispatch({type: 'CLOSE_MODAL', payload: {key}});
-  };
+  console.log('tabs', tabs)
+
 
 
   return (
@@ -43,17 +41,13 @@ const MainDesk = () => {
       <SideBar/>
       <body>
       <div>
-        <>
-          <Window
-            title={data.name.sub}
-            style={{top: 90}}
-            listItems={listItems}
-          />
-          <Window title={data.name.scripts} style={{top: 360}}/>
-          <Window title={data.name.files} style={{top: 630}}/>
-        </>
+        <div className="windows-box">
+          <Window title={data.name.sub} listItems={listItems}/>
+          <Window title={data.name.scripts} />
+          <Window title={data.name.files}/>
+        </div>
         {
-          tabs.tabs.length > 0 ?
+          tabs.tabs.length > 0 && isModalOpen.isModalOpen === true ?
             (<CustomModal>
               <Tabs/>
               {
@@ -63,7 +57,6 @@ const MainDesk = () => {
                       <HubModal
                         key={tab.tab.key}
                         onTextChange={() => handleTextChange}
-                        handleCloseModal={() => handleCloseModal(tabs.tabs.length - 1)}
                         title={data.name.sub}
                         setListItems={setListItems}
                       />
@@ -72,7 +65,6 @@ const MainDesk = () => {
                     return (
                       <ScriptsModal
                         key={tab.tab.key}
-                        handleCloseModal={() => handleCloseModal(tabs.tabs.length - 1)}
                         title={data.name.scripts}
                       />
                     )

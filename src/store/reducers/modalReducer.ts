@@ -1,13 +1,12 @@
 const defaultState = {
   isModalOpen: false,
-  activeWindowKey: null,
 }
 export const modalReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'OPEN_MODAL':
-      return {...state, isModalOpen: true, activeWindowKey: action.payload};
+      return {...state, isModalOpen: true};
     case 'CLOSE_MODAL':
-      return {...state, isModalOpen: false, activeWindowKey: null};
+      return {...state, isModalOpen: false};
     default:
       return state;
   }
