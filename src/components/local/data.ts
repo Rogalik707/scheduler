@@ -3,6 +3,8 @@ export const data = {
     sub: "ПОДПИСКИ",
     scripts: "СКРИПТЫ",
     files: "ФАЙЛЫ",
-    addSub: "ДОБАВИТЬ ПОДПИСКУ"
+    addSub: "ДОБАВИТЬ ПОДПИСКУ",
+    editScripts: "РЕДАКТИРОВАТЬ СКРИПТ",
+    addDataSource: "ДОБАВИТЬ ИСТОЧНИК ДАННЫХ",
   }
 };

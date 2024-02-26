@@ -1,11 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import React, {useState} from 'react';
+import React from 'react';
 import addIcon from '../../assets/img/add_circle.svg';
 import deleteIcon from '../../assets/img/delete.svg';
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducer} from "../../store/store";
-import {data} from "../local/data";
+import {useDispatch} from "react-redux";
 
 type Props = {
   title?: string,
@@ -15,9 +11,9 @@ type Props = {
 
 const Window = ({title, style, listItems}: Props) => {
 
-  const dispatch = useDispatch();
-  const tabs = useSelector((state: RootReducer) => state.tabs);
 
+  const dispatch = useDispatch();
+  // const tabs = useSelector((state: RootReducer) => state.tabs);
 
 
 

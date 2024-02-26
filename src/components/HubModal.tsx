@@ -1,16 +1,21 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import addIcon from "../assets/img/add_circle.svg";
-import {data} from "../components/local/data";
+import {data} from "./local/data";
+import deleteIcon from "../assets/img/delete-black.svg";
 
 
 type Props = {
   onTextChange: (text: string) => void,
   setListItems: (items: (prevState) => [...any[], string]) => void,
+  inputNameSub: string[],
+  setInputNameSub: (items: (prevState) => [...any[], string]) => void
 }
 const HubModal = ({
                     onTextChange,
-                    setListItems
+                    setListItems,
+                    inputNameSub,
+                    setInputNameSub
                   }: Props) => {
   const addSub = data.name.addSub
   const [inputTextName, setInputTextName] = useState('');
@@ -42,9 +47,19 @@ const HubModal = ({
   }
 
   const addSubscribe = (key) => {
-    console.log(123)
     dispatch({type: 'ADD_TAB', payload: {key}})
   }
+
+  const deleteSub = (i) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setInputNameSub((prevState) => {
+      const newState = [...prevState];
+      newState.splice(i, 1);
+      return newState;
+    });
+  }
+
 
   return (
     <>
@@ -71,7 +86,20 @@ const HubModal = ({
               <img src={addIcon} alt="add"/>
             </div>
           </div>
-          <textarea/>
+          <div className="modal-box-subs-list-board">
+            {
+              inputNameSub && inputNameSub.map((item, index) => (
+                <div key={index}>
+                  <div className="modal-box-subs-list-board-item">
+                    <p style={{color: '#21272E'}}>{item}</p>
+                    <div style={{cursor: 'pointer'}} onClick={() => deleteSub(index)}>
+                      <img src={deleteIcon} alt="delete"/>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
 

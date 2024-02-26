@@ -21,7 +21,6 @@ export const tabsReducer = (state = defaultState, action) => {
     case 'REMOVE_TAB': {
       const tabs = [...state.tabs];
       tabs.splice(action.payload.index, 1);
-      console.log(action.payload.index)
       return {
         ...state,
         tabs

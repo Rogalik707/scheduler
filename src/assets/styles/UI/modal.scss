@@ -2,7 +2,7 @@
   &-wrapper {
     //display: none;
     position: fixed;
-    width: 67vw;
+    width: 71vw;
     height: 89vh;
     top: 10%;
     bottom: 0;
@@ -25,7 +25,7 @@
     position: relative;
     height: 100%;
     width: 100%;
-    overflow-y: auto;
+    overflow-x: auto;
     background-color: #21272E;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     z-index: 101;
@@ -86,9 +86,17 @@
       flex-direction: column;
       gap: 15px;
 
-      & > textarea {
+      &-board {
         width: 26vw;
         height: 28.2vh;
+        background-color: #D9D9D9;
+        border-radius: 5px;
+        padding: 5px;
+
+        &-item {
+          display: flex;
+          justify-content: space-between;
+        }
       }
 
       & > p {
@@ -166,9 +174,9 @@
   margin-top: 30px;
 
   & > p {
-    margin-top: 20px;
+    margin-top: 11px;
     color: #FFFFFF;
-    font-size: 0.9em;
+    font-size: 0.7em;
     font-weight: 700;
     line-height: 19px;
   }
@@ -180,7 +188,7 @@
 
     & > p {
       color: #FFFFFF;
-      font-size: 0.9em;
+      font-size: 0.7em;
       font-weight: 700;
       line-height: 19px;
       text-align: left;
@@ -194,11 +202,57 @@
   }
 
   &-settings {
-    margin-top: 25px;
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     gap: 7px;
 
+    & > label {
+      font-size: 0.7em;
+      font-weight: 700;
+    }
+
+    &-params {
+      margin-left: 12px;
+
+
+    }
+    &-input {
+      width: 9vw;
+      border-radius: 5px;
+    }
+  }
+
+  &-panel-subs {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5vw;
+  }
+
+  &-available-subs {
+    margin-top: 12px;
+
+
+  }
+
+  &-title {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    & > p {
+      font-size: 0.7em;
+    }
+  }
+
+  &-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
 }
 
@@ -232,16 +286,27 @@
   justify-content: flex-start;
   gap: 10px;
   align-items: center;
+  overflow-x: auto;
 }
 
 .tab {
   display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: 5px;
+  width: 19vw;
   border: 2px solid #2060ab;
-  padding: 5px 10px;
+  padding: 5px;
   cursor: pointer;
+  align-items: baseline;
+  justify-content: space-between;
+
+  & > p {
+    color: #FFFFFF;
+    font-size: 0.7em;
+    font-weight: 700;
+    line-height: 19px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   &-close {
     padding: 0 3px;
@@ -249,6 +314,47 @@
     &:hover {
       background-color: rgba(255, 255, 255, 0.75);
     }
+  }
+}
+
+.scripts-panel {
+  width: 25vw;
+  height: 31vh;
+  background-color: #D9D9D9;
+  display: flex;
+  border-radius: 5px;
+
+  &-name {
+    width: 50%;
+    border-right: 1px solid #ffffff;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 7px 0 0 7px;
+
+    & > p {
+      font-size: 0.7em;
+      color: #21272E;
+    }
+
+    & > select {
+      width: 8vw;
+    }
+  }
+}
+
+.triangle {
+
+  &-right {
+    cursor: pointer;
+  }
+
+  &-left {
+    cursor: pointer;
+    transform: rotate(-180deg);
   }
 }
 

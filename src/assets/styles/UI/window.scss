@@ -51,20 +51,22 @@
   background-color: #252D34;
 
   &-button-add {
-    cursor: pointer;
     margin-left: 10px;
+    display: flex;
+    cursor: pointer;
 
     & > img {
-      width: 2vw;
+      width: 80%;
     }
   }
 
   &-button-delete {
     margin-right: 10px;
+    display: flex;
     cursor: pointer;
 
     & > img {
-      width: 2vw;
+      width: 80%;
     }
   }
 }

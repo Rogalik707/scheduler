@@ -1,33 +1,40 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../../store/store";
+import {data} from "../local/data";
 
 type Props = {
   title: string,
   tabIndex: number
 }
-const Tab = ({title, tabIndex}: Props) => {
+const Tab = ({ title, tabIndex }: Props) => {
+  const tabName = title === "СКРИПТЫ" ? data.name.editScripts :
+    (title === "ПОДПИСКИ" ? data.name.addDataSource : title);
+
   const dispatch = useDispatch();
   const tabs = useSelector((state: RootReducer) => state.tabs);
 
-
-  const handleCloseTab = (index) => {
-    dispatch({type: 'REMOVE_TAB', payload: {index}});
+  const handleCloseTab = () => {
+    dispatch({ type: 'REMOVE_TAB', payload: { index: tabIndex } });
   }
 
-  const handleSetActiveTab = () => {
-    dispatch({type: 'SET_ACTIVE_TAB', payload: {tabIndex}});
+  const handleSetActiveTab = (e) => {
+    if (e.button === 0) {
+      dispatch({ type: 'SET_ACTIVE_TAB', payload: { tabIndex } });
+    }
+    else if (e.button === 1) {
+      handleCloseTab();
+    }
   }
-
 
   return (
     <div className="tab"
-         style={tabs.tabs[tabIndex].isActive ? {backgroundColor: '#00ec82'} : {backgroundColor: "#181c21"}}
-         onClick={handleSetActiveTab}>
-      {title}
+         style={tabs.tabs[tabIndex].isActive ? { backgroundColor: 'rgba(0,255,234,0.6)' } : { backgroundColor: "#181c21" }}
+         onMouseDown={handleSetActiveTab}>
+      <p>{tabName}</p>
       <div className="tab-close" onClick={(e) => {
         e.stopPropagation();
-        handleCloseTab(tabIndex)
+        handleCloseTab();
       }}>
         ✖
       </div>
@@ -36,3 +43,4 @@ const Tab = ({title, tabIndex}: Props) => {
 };
 
 export default Tab;
+

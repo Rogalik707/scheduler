@@ -23,6 +23,8 @@ const MainDesk = () => {
   const [listItems, setListItems] = useState([]);
   const tabs = useSelector((state: RootReducer) => state.tabs);
   const isModalOpen = useSelector((state: RootReducer) => state.isModalOpen);
+  const [inputNameSub, setInputNameSub] = useState([]);
+
 
 
   const handleTextChange = (key, newText) => {
@@ -32,7 +34,6 @@ const MainDesk = () => {
     }));
   };
 
-  console.log('tabs', tabs)
 
 
 
@@ -59,6 +60,8 @@ const MainDesk = () => {
                         key={tab.tab.key}
                         onTextChange={() => handleTextChange}
                         setListItems={setListItems}
+                        inputNameSub={inputNameSub}
+                        setInputNameSub={setInputNameSub}
                       />
                     )
                   } else if (tab.isActive === true && tab.tab.key === 'СКРИПТЫ') {
@@ -72,6 +75,8 @@ const MainDesk = () => {
                     return (
                       <AddSubModal
                         key={tab.tab.key}
+                        setInputNameSub={setInputNameSub}
+
                       />
                     )
                   }
