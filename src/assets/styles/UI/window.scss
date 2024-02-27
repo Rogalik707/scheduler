@@ -13,8 +13,8 @@
   background-color: #21272E;
   border-radius: 10px;
   border: 1px solid #F5F5F580;
-  left: 90px;
-
+  overflow-y: auto;
+  user-select: none;
 
   &-header {
     height: 6vh;
@@ -33,11 +33,27 @@
 
   &-list {
     margin: 10px 0 0 10px;
-    width: 80%;
+    width: 90%;
     overflow-x: hidden;
 
     & > p {
       color: #FFFFFF;
+    }
+
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: default;
+      padding: 0 5px;
+
+      &:hover {
+        background-color: rgba(178, 178, 178, 0.23);
+      }
+
+      &-dropdown {
+        display: flex;
+      }
     }
   }
 }

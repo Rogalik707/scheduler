@@ -29,10 +29,12 @@ const AddSubModal = ({setInputNameSub}: Props) => {
   }
 
   const handleSaveChanges = () => {
-    setInputNameSub((prevState) => [...prevState, inputTextName]);
+    dispatch({type: 'PUSH_TO_LIST', payload: {subscribe: inputTextName}});
     setInputTextName('');
+    // dispatch({type: 'SET_ACTIVE_TAB', payload: {tabIndex: tabs.tabs.length - 1}});
     dispatch({type: 'REMOVE_TAB', payload: {index: tabs.tabs.findIndex(tab => tab.isActive)}});
   }
+
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);

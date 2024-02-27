@@ -1,32 +1,33 @@
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import addIcon from "../assets/img/add_circle.svg";
 import {data} from "./local/data";
 import deleteIcon from "../assets/img/delete-black.svg";
 
 
 type Props = {
-  onTextChange: (text: string) => void,
-  setListItems: (items: (prevState) => [...any[], string]) => void,
+  // setListItems: (items: (prevState) => [...any[], string]) => void,
   inputNameSub: string[],
-  setInputNameSub: (items: (prevState) => [...any[], string]) => void
+  setInputNameSub: (items: (prevState) => [...any[], string]) => void,
+  list: any
 }
 const HubModal = ({
-                    onTextChange,
-                    setListItems,
+                    // setListItems,
                     inputNameSub,
-                    setInputNameSub
+                    setInputNameSub,
+                    list
                   }: Props) => {
   const addSub = data.name.addSub
   const [inputTextName, setInputTextName] = useState('');
   const [inputTextURL, setInputTextURL] = useState('');
+
   const dispatch = useDispatch();
 
+  console.log('list', list)
 
   const handleChangeName = (e) => {
     const newText = e.target.value;
     setInputTextName(newText);
-    onTextChange(newText);
   };
 
   const closeModal = () => {
@@ -34,7 +35,9 @@ const HubModal = ({
   }
 
   const handleSaveChanges = () => {
-    setListItems((prevState) => [...prevState, inputTextName]);
+    dispatch({type: 'PUSH_TO_LIST', payload: {title: inputTextName, sub: ''}});
+
+    // setListItems((prevState) => [...prevState, inputTextName]);
     setInputTextName('')
     closeModal();
   }
@@ -51,13 +54,7 @@ const HubModal = ({
   }
 
   const deleteSub = (i) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setInputNameSub((prevState) => {
-      const newState = [...prevState];
-      newState.splice(i, 1);
-      return newState;
-    });
+    dispatch({type: 'REMOVE_FROM_LIST', payload: {index: i}})
   }
 
 
@@ -88,10 +85,10 @@ const HubModal = ({
           </div>
           <div className="modal-box-subs-list-board">
             {
-              inputNameSub && inputNameSub.map((item, index) => (
+              list && list.list.map((item, index) => (
                 <div key={index}>
                   <div className="modal-box-subs-list-board-item">
-                    <p style={{color: '#21272E'}}>{item}</p>
+                    <p style={{color: '#21272E'}}>{item.subscribe}</p>
                     <div style={{cursor: 'pointer'}} onClick={() => deleteSub(index)}>
                       <img src={deleteIcon} alt="delete"/>
                     </div>
