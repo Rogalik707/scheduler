@@ -7,16 +7,12 @@ import doubleTriangleIcon from '../assets/img/double_rewind.svg';
 import {RootReducer} from "../store/store";
 
 
-type Props = {
-  setInputNameSub: (items: (prevState) => [...any[], string]) => void,
-}
-const AddSubModal = ({setInputNameSub}: Props) => {
+const AddSubModal = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputTextName, setInputTextName] = useState('');
 
   const dispatch = useDispatch();
   const tabs = useSelector((state: RootReducer) => state.tabs);
-
 
 
   const handleChangeName = (e) => {
@@ -25,20 +21,20 @@ const AddSubModal = ({setInputNameSub}: Props) => {
   }
 
   const closeModal = () => {
+    dispatch({type: 'REMOVE_TAB', payload: {index: tabs.tabs.findIndex(tab => tab.isActive)}});
     dispatch({type: 'CLOSE_MODAL'});
   }
 
   const handleSaveChanges = () => {
+    // const uniqueId = tabs.tabs.map((id) => id.uniqueId)
     dispatch({type: 'PUSH_TO_SUBSCRIBES_LIST', payload: {subscribe: inputTextName}});
     setInputTextName('');
-    // dispatch({type: 'REMOVE_TAB', payload: {index: tabs.tabs.findIndex(tab => tab.isActive)}});
+    dispatch({type: 'REMOVE_TAB', payload: {index: tabs.tabs.findIndex(tab => tab.isActive)}});
   }
-
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
 
   return (
     <div className="add-sub">
@@ -109,7 +105,13 @@ const AddSubModal = ({setInputNameSub}: Props) => {
       </div>
 
       <div className="modal-buttons-container">
-        <button className="button modal-save-changes" onClick={handleSaveChanges}>СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+        <button
+          className="button modal-save-changes"
+          disabled={!inputTextName}
+          onClick={handleSaveChanges}
+          style={{ pointerEvents: !inputTextName ? 'none' : 'auto' }}
+        >СОХРАНИТЬ ИЗМЕНЕНИЯ
+        </button>
         <button className="button modal-cancel" onClick={closeModal}>ОТМЕНИТЬ</button>
       </div>
     </div>

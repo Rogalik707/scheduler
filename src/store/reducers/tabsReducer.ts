@@ -8,10 +8,13 @@ export const tabsReducer = (state = defaultState, action) => {
   switch (action.type) {
 
     case 'ADD_TAB': {
+
       const newTab = {
         tab: action.payload,
-        isActive: true
+        isActive: true,
+        uniqueId: !action.payload.uniqueId ? Number(Date.now()) : action.payload.uniqueId
       };
+
       return {
         ...state,
         tabs: [...state.tabs.map(tab => ({...tab, isActive: false})), newTab],

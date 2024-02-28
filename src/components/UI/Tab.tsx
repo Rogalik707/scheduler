@@ -29,7 +29,7 @@ const Tab = ({ title, tabIndex }: Props) => {
 
   return (
     <div className="tab"
-         style={tabs.tabs[tabIndex].isActive ? { backgroundColor: 'rgba(0,255,234,0.6)' } : { backgroundColor: "#181c21" }}
+         style={tabs.tabs[tabIndex].isActive ? { backgroundColor: 'rgba(0,236,130,0.63)' } : { backgroundColor: "#181c21" }}
          onMouseDown={handleSetActiveTab}>
       <p>{tabName}</p>
       <div className="tab-close" onClick={(e) => {

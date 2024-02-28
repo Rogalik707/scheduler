@@ -5,8 +5,14 @@ const defaultState = {
 export const hubsListReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'PUSH_TO_HUBS_LIST': {
-
-      return {hubs: [...state.hubs, action.payload]};
+      const newHub = {
+        hub: action.payload.hubName,
+        uniqueId: action.payload.uniqueId,
+        subscribes: action.payload.subscribes
+      }
+      return {
+        hubs: [...state.hubs.map(hub => ({...hub})), newHub],
+      }
     }
     case 'REMOVE_FROM_HUBS_LIST': {
       const hubs = [...state.hubs];

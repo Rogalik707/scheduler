@@ -3,33 +3,79 @@ import addIcon from '../../assets/img/add_circle.svg';
 import deleteIcon from '../../assets/img/delete.svg';
 import {useDispatch} from "react-redux";
 import dropdownIcon from '../../assets/img/arrow_drop_down.svg';
+import {deleteHub} from "../../api";
 
-type ListItemProps = {
-  item: string,
-  index: number,
-
+type subItemProps = {
+  item: {
+    subscribe: string
+  }
 }
 
-const ListItem = ({item, index, }: ListItemProps) => {
+const SubItem = ({item}: subItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState({});
-
-  const handleSelect = (currentIndex) => {
-    if (selectedItems === currentIndex) {
-      setSelectedItems(null);
-    } else {
-      setSelectedItems(currentIndex);
-    }
-  }
 
   const handleIsOpen = () => {
     setIsOpen(!isOpen);
   }
 
-  useEffect(() => {
+  return (
+    <>
+      {
+        <div
+          className="window-list-item"
+          style={{marginLeft: '0.8vw'}}
+        >
+          <p>{item.subscribe}</p>
+          <div
+            style={{cursor: 'pointer'}}
+            className="window-list-item-dropdown"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleIsOpen();
+            }}>
+            <img
+              style={isOpen ? {transform: 'rotate(180deg)'} : {transform: 'rotate(0deg)'}}
+              src={dropdownIcon}
+              alt="▼"/>
+          </div>
+        </div>
+      }
+    </>
+  )
+}
+
+type HubItemProps = {
+  item: any,
+  index: number,
+  setSelectedItems: any,
+  selectedItems: any
+}
+
+const HubItem = ({item, index, setSelectedItems, selectedItems}: HubItemProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  console.log('item.id', selectedItems)
+
+  const handleSelect = () => {
+    setSelectedItems(prevState => {
+      if (prevState === item.id) {
+        return null;
+      } else {
+        return item.id;
+      }
+    });
+  }
+
+
+
+  const handleIsOpen = () => {
+    setIsOpen(!isOpen);
+  }
+
+  /*useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest('.window-hubs-item')) {
-        setSelectedItems({});
+        setSelectedItems(null);
       }
     };
     document.addEventListener('click', handleClickOutside);
@@ -37,32 +83,37 @@ const ListItem = ({item, index, }: ListItemProps) => {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, []);*/
 
 
   return (
-    <div
-      className="window-list-item"
-      style={selectedItems === index ? {backgroundColor: 'rgba(77,232,221,0.26)'} : {}}
-      key={index}
-      onClick={() => {
-        handleSelect(index);
-      }}
-    >
-      <p>{item}</p>
+    <>
       <div
-        style={{cursor: 'pointer'}}
-        className="window-list-item-dropdown"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleIsOpen();
-        }}>
-        <img
-          style={isOpen ? {transform: 'rotate(180deg)'} : {transform: 'rotate(0deg)'}}
-          src={dropdownIcon}
-          alt="▼"/>
+        className="window-list-item"
+        style={selectedItems === item.id ? {backgroundColor: 'rgba(77,232,221,0.26)'} : {}}
+        key={index}
+        onClick={() => {
+          handleSelect();
+        }}
+      >
+        <p>{item.name}</p>
+        <div
+          style={{cursor: 'pointer'}}
+          className="window-list-item-dropdown"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleIsOpen();
+          }}>
+          <img
+            style={isOpen ? {transform: 'rotate(180deg)'} : {transform: 'rotate(0deg)'}}
+            src={dropdownIcon}
+            alt="▼"/>
+        </div>
       </div>
-    </div>
+      {/*{isOpen ? (item.subscribes.subscribes.map((i, index) => {
+        return <SubItem item={i} key={index}/>
+      })) : null}*/}
+    </>
   );
 };
 
@@ -70,10 +121,13 @@ const ListItem = ({item, index, }: ListItemProps) => {
 type Props = {
   title?: string,
   style?: React.CSSProperties,
-  hubs?: any,
+  hubsList?: any
 }
 
-const Window = ({title, style, hubs }: Props) => {
+const Window = ({title, style, hubsList}: Props) => {
+  const [selectedItems, setSelectedItems] = useState(null);
+
+
   const dispatch = useDispatch();
 
   const handleOpenModal = (key) => {
@@ -81,6 +135,9 @@ const Window = ({title, style, hubs }: Props) => {
     dispatch({type: 'OPEN_MODAL'});
   };
 
+  const testFunc = async (id) => {
+     const result = await deleteHub(id)
+  }
 
   return (
     <div
@@ -94,13 +151,13 @@ const Window = ({title, style, hubs }: Props) => {
         <div className="control-panel-button-add" onClick={() => handleOpenModal(title)}>
           <img src={addIcon} alt="add"/>
         </div>
-        <div className="control-panel-button-delete" >
-          <img src={deleteIcon} alt="delele"/>
+        <div className="control-panel-button-delete">
+          <img src={deleteIcon} alt="delele" onClick={() => testFunc(selectedItems)}/>
         </div>
       </div>
       <div className="window-list">
-        {hubs && hubs.hubs.map((item, index) => {
-          return <ListItem item={item.title} key={index} index={index}/>
+        {hubsList?.data && hubsList?.data.map((item, index) => {
+          return <HubItem item={item} key={index} index={index} setSelectedItems={setSelectedItems} selectedItems={selectedItems} />
         })}
       </div>
     </div>

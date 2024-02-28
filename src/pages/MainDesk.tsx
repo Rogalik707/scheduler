@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Window from "../components/UI/Window";
@@ -10,33 +10,25 @@ import CustomModal from "../components/UI/CustomModal";
 import Tabs from "../components/UI/Tabs";
 import ScriptsModal from "../components/ScriptsModal";
 import AddSubModal from "../components/AddSubModal";
+import {getHubs} from '../api'
 
 
 const MainDesk = () => {
-
-  const [windowText, setWindowText] = useState({
-    sub: '',
-    scripts: '',
-    files: ''
-  });
-
-  const [listItems, setListItems] = useState([]);
   const tabs = useSelector((state: RootReducer) => state.tabs);
   const isModalOpen = useSelector((state: RootReducer) => state.isModalOpen);
-  const [inputNameSub, setInputNameSub] = useState([]);
   const hubs = useSelector((state: RootReducer) => state.hubs);
   const subscribes = useSelector((state: RootReducer) => state.subscribes);
+  const [hubsList, setHubsList] = useState<any>([])
 
 
 
-  const handleTextChange = (key, newText) => {
-    setWindowText(prevState => ({
-      ...prevState,
-      [key]: newText
-    }));
-  };
-
-
+  useEffect(() => {
+    getHubs().then(result => {
+      setHubsList(result);
+    }).catch(error => {
+      console.log('Error fetching hubs:', error);
+    });
+  }, []);
 
 
   return (
@@ -48,9 +40,9 @@ const MainDesk = () => {
         <div className="windows-box">
           <Window
             title={data.name.sub}
-            hubs={hubs}
+            hubsList={hubsList}
           />
-          <Window title={data.name.scripts} />
+          <Window title={data.name.scripts}/>
           <Window title={data.name.files}/>
         </div>
         {
@@ -63,10 +55,7 @@ const MainDesk = () => {
                     return (
                       <HubModal
                         key={tab.tab.key}
-                        // setListItems={setListItems}
                         subscribes={subscribes}
-                        inputNameSub={inputNameSub}
-                        setInputNameSub={setInputNameSub}
                       />
                     )
                   } else if (tab.isActive === true && tab.tab.key === 'СКРИПТЫ') {
@@ -75,17 +64,14 @@ const MainDesk = () => {
                         key={tab.tab.key}
                       />
                     )
-                  }
-                  else if (tab.isActive === true && tab.tab.key === 'ДОБАВИТЬ ПОДПИСКУ') {
+                  } else if (tab.isActive === true && tab.tab.key === 'ДОБАВИТЬ ПОДПИСКУ') {
                     return (
                       <AddSubModal
                         key={tab.tab.key}
-                        setInputNameSub={setInputNameSub}
 
                       />
                     )
-                  }
-                  else return null;
+                  } else return null;
                 })
               }
             </CustomModal>) : null

@@ -12,7 +12,8 @@ export type RootReducer = {
         tab: {
           key: string,
         },
-        isActive: boolean
+        isActive: boolean,
+        uniqueId: number
       }
     ],
     activeTab: {

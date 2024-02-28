@@ -3,24 +3,25 @@ import {useDispatch, useSelector} from "react-redux";
 import addIcon from "../assets/img/add_circle.svg";
 import {data} from "./local/data";
 import deleteIcon from "../assets/img/delete-black.svg";
+import {RootReducer} from "../store/store";
+import {createHub} from "../api"
 
 
 type Props = {
-  // setListItems: (items: (prevState) => [...any[], string]) => void,
-  inputNameSub: string[],
-  setInputNameSub: (items: (prevState) => [...any[], string]) => void,
-  subscribes: any
+  subscribes: any,
 }
 const HubModal = ({
-                    subscribes
+                    subscribes,
                   }: Props) => {
   const addSub = data.name.addSub
   const [inputTextName, setInputTextName] = useState('');
   const [inputTextURL, setInputTextURL] = useState('');
+  const [inputTextComment, setInputTextComment] = useState('');
 
   const dispatch = useDispatch();
+  const tabs = useSelector((state: RootReducer) => state.tabs);
 
-  console.log('subscribes', subscribes)
+  // console.log('subscribes', subscribes)
 
   const handleChangeName = (e) => {
     const newText = e.target.value;
@@ -28,20 +29,38 @@ const HubModal = ({
   };
 
   const closeModal = () => {
+    dispatch({type: 'REMOVE_TAB', payload: {index: tabs.tabs.findIndex(tab => tab.isActive)}});
     dispatch({type: 'CLOSE_MODAL'});
   }
 
-  const handleSaveChanges = () => {
-    dispatch({type: 'PUSH_TO_HUBS_LIST', payload: {title: inputTextName}});
+  const handleSaveChanges = async () => {
+    const uniqueId = Date.now().toString()
+    console.log(uniqueId)
+      try {
+        const result = await createHub({
+          key: uniqueId,
+          name: inputTextName,
+          url: inputTextURL ? inputTextURL : 'The url is missing',
+          comment: inputTextComment ? inputTextComment :'The comment is missing'
+        })
+        console.log('result', result)
+      } catch (e) {
+        console.log('result error', e)
+      }
+
+    // dispatch({type: 'PUSH_TO_HUBS_LIST', payload: {hubName: inputTextName, subscribes: subscribes}});
     setInputTextName('')
     closeModal();
   }
 
-
   const handleChangeURL = (e) => {
     const newText = e.target.value;
     setInputTextURL(newText);
-    // onTextChange(newText);
+  }
+
+  const handleChangeComment = (e) => {
+    const newText = e.target.value;
+    setInputTextComment(newText)
   }
 
   const addSubscribe = (key) => {
@@ -67,7 +86,7 @@ const HubModal = ({
           </div>
           <div className="modal-box-container">
             <p>Комментарий</p>
-            <textarea/>
+            <textarea value={inputTextComment} onChange={handleChangeComment}/>
           </div>
         </div>
 
@@ -96,7 +115,14 @@ const HubModal = ({
       </div>
 
       <div className="modal-buttons-container">
-        <button className="button modal-save-changes" onClick={handleSaveChanges}>СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+        <button
+          className="button modal-save-changes"
+          disabled={!inputTextName}
+          onClick={handleSaveChanges}
+          style={{ pointerEvents: !inputTextName ? 'none' : 'auto' }}
+        >
+          СОХРАНИТЬ ИЗМЕНЕНИЯ
+        </button>
         <button className="button modal-cancel" onClick={closeModal}>ОТМЕНИТЬ</button>
       </div>
     </>
