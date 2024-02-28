@@ -24,7 +24,8 @@ const MainDesk = () => {
   const tabs = useSelector((state: RootReducer) => state.tabs);
   const isModalOpen = useSelector((state: RootReducer) => state.isModalOpen);
   const [inputNameSub, setInputNameSub] = useState([]);
-  const list = useSelector((state: any) => state.list);
+  const hubs = useSelector((state: RootReducer) => state.hubs);
+  const subscribes = useSelector((state: RootReducer) => state.subscribes);
 
 
 
@@ -47,7 +48,7 @@ const MainDesk = () => {
         <div className="windows-box">
           <Window
             title={data.name.sub}
-            list={list}
+            hubs={hubs}
           />
           <Window title={data.name.scripts} />
           <Window title={data.name.files}/>
@@ -63,7 +64,7 @@ const MainDesk = () => {
                       <HubModal
                         key={tab.tab.key}
                         // setListItems={setListItems}
-                        list={list}
+                        subscribes={subscribes}
                         inputNameSub={inputNameSub}
                         setInputNameSub={setInputNameSub}
                       />

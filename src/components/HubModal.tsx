@@ -9,13 +9,10 @@ type Props = {
   // setListItems: (items: (prevState) => [...any[], string]) => void,
   inputNameSub: string[],
   setInputNameSub: (items: (prevState) => [...any[], string]) => void,
-  list: any
+  subscribes: any
 }
 const HubModal = ({
-                    // setListItems,
-                    inputNameSub,
-                    setInputNameSub,
-                    list
+                    subscribes
                   }: Props) => {
   const addSub = data.name.addSub
   const [inputTextName, setInputTextName] = useState('');
@@ -23,7 +20,7 @@ const HubModal = ({
 
   const dispatch = useDispatch();
 
-  console.log('list', list)
+  console.log('subscribes', subscribes)
 
   const handleChangeName = (e) => {
     const newText = e.target.value;
@@ -35,9 +32,7 @@ const HubModal = ({
   }
 
   const handleSaveChanges = () => {
-    dispatch({type: 'PUSH_TO_LIST', payload: {title: inputTextName, sub: ''}});
-
-    // setListItems((prevState) => [...prevState, inputTextName]);
+    dispatch({type: 'PUSH_TO_HUBS_LIST', payload: {title: inputTextName}});
     setInputTextName('')
     closeModal();
   }
@@ -54,7 +49,7 @@ const HubModal = ({
   }
 
   const deleteSub = (i) => {
-    dispatch({type: 'REMOVE_FROM_LIST', payload: {index: i}})
+    dispatch({type: 'REMOVE_FROM_SUBSCRIBES_LIST', payload: {index: i}})
   }
 
 
@@ -85,7 +80,7 @@ const HubModal = ({
           </div>
           <div className="modal-box-subs-list-board">
             {
-              list && list.list.map((item, index) => (
+              subscribes.subscribes && subscribes.subscribes.map((item, index) => (
                 <div key={index}>
                   <div className="modal-box-subs-list-board-item">
                     <p style={{color: '#21272E'}}>{item.subscribe}</p>

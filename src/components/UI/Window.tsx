@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import addIcon from '../../assets/img/add_circle.svg';
 import deleteIcon from '../../assets/img/delete.svg';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import dropdownIcon from '../../assets/img/arrow_drop_down.svg';
 
 type ListItemProps = {
@@ -28,7 +28,7 @@ const ListItem = ({item, index, }: ListItemProps) => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!e.target.closest('.window-list-item')) {
+      if (!e.target.closest('.window-hubs-item')) {
         setSelectedItems({});
       }
     };
@@ -70,10 +70,10 @@ const ListItem = ({item, index, }: ListItemProps) => {
 type Props = {
   title?: string,
   style?: React.CSSProperties,
-  list?: any,
+  hubs?: any,
 }
 
-const Window = ({title, style, list }: Props) => {
+const Window = ({title, style, hubs }: Props) => {
   const dispatch = useDispatch();
 
   const handleOpenModal = (key) => {
@@ -99,7 +99,7 @@ const Window = ({title, style, list }: Props) => {
         </div>
       </div>
       <div className="window-list">
-        {list && list.list.map((item, index) => {
+        {hubs && hubs.hubs.map((item, index) => {
           return <ListItem item={item.title} key={index} index={index}/>
         })}
       </div>

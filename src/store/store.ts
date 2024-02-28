@@ -1,7 +1,8 @@
 import {combineReducers, createStore} from "@reduxjs/toolkit";
 import {tabsReducer} from "./reducers/tabsReducer";
 import {modalReducer} from "./reducers/modalReducer";
-import {listItemsReducer} from "./reducers/listItemsReducer";
+import {hubsListReducer} from "./reducers/hubsListReducer";
+import {subscribesListReducer} from "./reducers/subscribesListReducer";
 
 
 export type RootReducer = {
@@ -25,16 +26,19 @@ export type RootReducer = {
     isModalOpen: boolean,
   },
 
-  list: {
-    list: [],
-    activeWindowKey: null
-  }
+  hubs: {
+    hubs: [],
+  },
+  subscribes: {
+    subscribes: [],
+  },
 }
 
 const rootReducer = combineReducers({
   tabs: tabsReducer,
   isModalOpen: modalReducer,
-  list: listItemsReducer
+  hubs: hubsListReducer,
+  subscribes: subscribesListReducer
 })
 
 export const store = createStore(rootReducer)
